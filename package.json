@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "bluebird": "^3.0.5",
-    "lodash": "^3.10.1"
+    "event-stream": "^3.3.2",
+    "lodash": "^3.10.1",
+    "tool-stream": "^0.2.1"
   }
 }
