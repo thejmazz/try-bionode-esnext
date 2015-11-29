@@ -1,0 +1,23 @@
+{
+  "name": "try-bionode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18"
+  },
+  "babel": {
+    "presets": [
+        "es2015"
+    ],
+    "plugins": ["transform-async-to-generator"]
+    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve:dev": "nodemon src/index.js --exec babel-node",
+    "build": "babel src --out-dir dist"
+  }
+}
