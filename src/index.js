@@ -5,6 +5,7 @@ import _ from 'lodash';
 import tool from 'tool-stream';
 import es from 'event-stream';
 import bio from 'bionode';
+import dat from 'dat';
 
 // ==== introduction to patterns ====
 // Can use bionode modules in 3 different ways:
