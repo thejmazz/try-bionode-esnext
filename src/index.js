@@ -72,3 +72,44 @@ async function fastaDownload(pId) {
         }))
         .pipe(process.stdout);
 })();
+
+// ==== bionode-seq ====
+(async function() {
+    const fasta = await bioP(['ncbi', 'fetch'], ['protein', '50659069']);
+    const threshold = 85; //default 90
+    const length = 1000; //default 10 0000
+    const type = bio.seq.checkType(fasta[0].seq, threshold, length);
+    console.log(`sequence type: ${type}`);
+
+    const reverse = bio.seq.reverse(fasta[0].seq);
+    console.log(`reversed: ${reverse}`);
+
+    const complement = bio.seq.complement(fasta[0].seq);
+    console.log(`complement: ${complement}`);
+
+    console.log(`transcribe bases, e.g. A -> ${bio.seq.getTranscribedBase('A')}`);
+
+    console.log(`codon -> AA, e.g. AUG -> ${bio.seq.getTranslatedAA('AUG')}`);
+
+    const seq = 'ATGACCCTGAAGGTGAATGACAG';
+    const exon = bio.seq.removeIntrons(seq, [[2, 9], [12, 20]]);
+    console.log(`remove introns [[2, 9], [12, 20]] from ${seq} -> ${exon}`);
+
+    console.log('transcribe DNA <-> RNA, e.g. ${seq} <-> ${bio.seq.transcribe(seq)}');
+
+    console.log(`translate ${seq} -> ${bio.seq.translate(seq)}`);
+
+    console.log(`reverse exons [2,8] -> [${bio.seq.reverseExons([[2,8]], 20)}]`);
+
+    console.log(`non-canonical splice sites: [${bio.seq.findNonCanonicalSplices("GGCGGCGGCGGTGAGGTGGACCTGCGCGAATACGTGGTCGCCCTGT", [[0, 10], [20, 30]])}]`);
+
+    console.log(`check canonical translation start site: ATGACCCTGAAGGT -> ${bio.seq.checkCanonicalTranslationStartSite('ATGACCCTGAAGGT')}`);
+
+    console.log(`get reading frames: [${bio.seq.getReadingFrames("ATGACCCTGAAGGTGAATGACAGGAAGCCCAAC")}]`);
+
+    console.log(`get open reading frames: [${bio.seq.getOpenReadingFrames("ATGACCCTGAAGGTGAATGACAGGAAGCCCAAC")}]`);
+
+    console.log(`get all open reading frames: [${bio.seq.getAllOpenReadingFrames("ATGACCCTGAAGGTGAATGACAGGAAGCCCAAC")}]`);
+
+    console.log(`find longest open reading frame: [${bio.seq.findLongestOpenReadingFrame("ATGACCCTGAAGGTGAATGACAGGAAGCCCAAC")}]`);
+})();
